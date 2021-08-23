@@ -1,0 +1,6 @@
+{% extends 'todo/layout.html' %}
+
+{% block content %}
+    <h1> {{task.id}} - {{task.task}} </h1>
+    <a href="{% url 'todo:index' %}">Back to all the Tasks</a>
+{% endblock content %}

@@ -4,7 +4,7 @@
 <h1>Tasks</h1>
 <ul>
     {% for task in tasks %}
-        <li>{{task}}</li>
+        <li> <a href="{% url 'todo:task' task.id%}">{{task}}</a> - Edit <a href="{% url 'todo:delete_task' task.id %}">Delete</a></li>
     {% endfor %}
 </ul>
 <a href=" {% url 'todo:add' %} ">Add task</a>
