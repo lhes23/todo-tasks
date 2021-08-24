@@ -9,19 +9,28 @@ def index(request):
     return render(request,"todo/index.html",context)
 
 def add(request):
-    if request.method == "POST":
-        form = AddTaskForm(request.POST)
-        if form.is_valid():
-            task = form.cleaned_data["task"]
-            new_task = Task(task=task)
-            new_task.save()
-            return HttpResponseRedirect(reverse("todo:index"))
-        else:
-            return render(request,'todo/add.html',{"form":form})
-    else:
-        form = AddTaskForm()
-        context = {"form":form}
-        return render(request,'todo/add.html',context)
+    # if request.method == "POST":
+    #     form = AddTaskForm(request.POST)
+    #     if form.is_valid():
+    #         task = form.cleaned_data["task"]
+    #         new_task = Task(task=task)
+    #         new_task.save()
+    #         return HttpResponseRedirect(reverse("todo:index"))
+    #     else:
+    #         return render(request,'todo/add.html',{"form":form})
+    # else:
+    #     form = AddTaskForm()
+    #     context = {"form":form}
+    #     return render(request,'todo/add.html',context)
+
+    form = AddTaskForm(request.POST or None)
+    if form.is_valid():
+        task = form.cleaned_data["task"]
+        new_task = Task(task=task)
+        new_task.save()
+        return redirect("todo:index")
+    context = {"form":form}
+    return render(request,'todo/add.html',context)
 
 def task(request, task_id):
     task = Task.objects.get(pk=task_id)
